@@ -27,7 +27,7 @@ class Searcher
         catch(PDOException $e) {
 
         echo "Error: " . $e->getMessage();
-        
+
         }
     }
 
@@ -64,6 +64,7 @@ class Searcher
         // checking if required meet
         if(($roomsRequired != 0 ) && ($count >= $roomsRequired))
         {
+            print_r($result1);
             return $result1;
         }
         else
@@ -79,57 +80,49 @@ class Searcher
         return array(
             array(
                 'room_name'=>'Room A', 
-                'room_price'=>30.34,
+                'room_price'=>25.80,
                 'room_no'=>1, 
-                'room_floor'=>3,
+                'room_floor'=>1,
                 'room_availability'=>'False'
 
             ),
             array(
-                'room_name'=>'Room D', 
-                'room_price'=>20.25,
+                'room_name'=>'Room A', 
+                'room_price'=>25.80,
                 'room_no'=>1, 
                 'room_floor'=>2,
-                'room_availability'=>'True'
+                'room_availability'=>'False'
 
             ),
             array(
-                'room_name'=>'Room D', 
-                'room_price'=>30.00,
-                'room_no'=>2, 
-                'room_floor'=>3,
-                'room_availability'=>'True'
-
-            ),
-            array(
-                'room_name'=>'Room B', 
-                'room_price'=>35.90,
-                'room_no'=>2, 
+                'room_name'=>'Room A', 
+                'room_price'=>25.80,
+                'room_no'=>1, 
                 'room_floor'=>3,
                 'room_availability'=>'True'
 
             ),
             array(
                 'room_name'=>'Room A', 
-                'room_price'=>40.00,
-                'room_no'=>1, 
-                'room_floor'=>1,
-                'room_availability'=>'True'
-
-            ),
-            array(
-                'room_name'=>'Room C', 
-                'room_price'=>25.70,
-                'room_no'=>2, 
-                'room_floor'=>3,
-                'room_availability'=>'True'
-
-            ),
-            array(
-                'room_name'=>'Room C', 
-                'room_price'=>50.99,
+                'room_price'=>25.80,
                 'room_no'=>1, 
                 'room_floor'=>4,
+                'room_availability'=>'True'
+
+            ),
+            array(
+                'room_name'=>'Room A', 
+                'room_price'=>25.80,
+                'room_no'=>1, 
+                'room_floor'=>5,
+                'room_availability'=>'False'
+
+            ),
+            array(
+                'room_name'=>'Room A', 
+                'room_price'=>30.10,
+                'room_no'=>2, 
+                'room_floor'=>6,
                 'room_availability'=>'False'
 
             ),
@@ -137,24 +130,64 @@ class Searcher
                 'room_name'=>'Room A', 
                 'room_price'=>35.00,
                 'room_no'=>2, 
-                'room_floor'=>3,
+                'room_floor'=>7,
                 'room_availability'=>'True'
 
             ),
             array(
-                'room_name'=>'Room D', 
-                'room_price'=>30.87,
+                'room_name'=>'Room B', 
+                'room_price'=>45.80,
                 'room_no'=>1, 
-                'room_floor'=>3,
+                'room_floor'=>1,
+                'room_availability'=>'True'
+
+            ),
+            array(
+                'room_name'=>'Room B', 
+                'room_price'=>45.80,
+                'room_no'=>1, 
+                'room_floor'=>2,
                 'room_availability'=>'False'
 
             ),
             array(
-                'room_name'=>'Room D', 
-                'room_price'=>30.00,
+                'room_name'=>'Room B', 
+                'room_price'=>45.80,
                 'room_no'=>1, 
                 'room_floor'=>3,
                 'room_availability'=>'True'
+
+            ),
+            array(
+                'room_name'=>'Room B', 
+                'room_price'=>45.80,
+                'room_no'=>1, 
+                'room_floor'=>4,
+                'room_availability'=>'True'
+
+            ),
+            array(
+                'room_name'=>'Room B', 
+                'room_price'=>45.80,
+                'room_no'=>1, 
+                'room_floor'=>5,
+                'room_availability'=>'False'
+
+            ),
+            array(
+                'room_name'=>'Room B', 
+                'room_price'=>49.00,
+                'room_no'=>2, 
+                'room_floor'=>6,
+                'room_availability'=>'False'
+
+            ),
+            array(
+                'room_name'=>'Room B', 
+                'room_price'=>49.00,
+                'room_no'=>2, 
+                'room_floor'=>7,
+                'room_availability'=>'False'
 
             )
         );

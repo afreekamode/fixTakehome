@@ -25,7 +25,7 @@ class SearcherTest extends TestCase
     public function testSearchDoesReturnArrayOfProperties()
     {
         $searcher = new Searcher();
-        $exp = $searcher->search(1, '40', '70');
+        $exp = $searcher->search(2, '20', '30');
         $this->assertIsArray($exp);
     }
 
