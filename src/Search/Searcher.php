@@ -2,9 +2,7 @@
 
 namespace MercuryHolidays\Search;
 
-use PDO;
 use PDOException;
-use MercuryHolidays\Search\Conn;
 
 class Searcher
 {
@@ -13,55 +11,153 @@ class Searcher
     {
 
         // TODO: Implement me
-        $conn = (new Conn)->newDB();
 
         //Add new property data
         try {
-        $stmt = $conn->prepare("INSERT INTO properties (room_name, room_no, room_floor, room_availability, room_price)
-        VALUES (:room_name, :room_no, :room_floor, :room_availability, :room_price)");
-        $stmt->bindParam(':room_name', $property['room_name']);
-        $stmt->bindParam(':room_no', $property['room_no']);
-        $stmt->bindParam(':room_price', $property['room_price']);
-        $stmt->bindParam(':room_availability', $property['room_availability']);
-        $stmt->bindParam(':room_floor', $property['room_floor']);
-        $stmt->execute();
-        if($stmt)
-        {
-            echo "Property details added successfully.";
-        }
+
+            $properties = array_merge(static::properties(), $property);
+
+            if($properties)
+            {
+                // return $properties;
+                echo "Property details added successfully";
+            }
         
         }
         catch(PDOException $e) {
+
         echo "Error: " . $e->getMessage();
+        
         }
-        $conn = null;
     }
 
     public function search(int $roomsRequired, $minimum, $maximum)
     {
-        $conn = (new Conn)->newDB();
-        try {
-            $stmt = $conn->prepare("SELECT room_name, room_no, room_floor, room_availability, room_price FROM properties WHERE room_availability='True' AND room_price >=$minimum AND room_price<=$maximum");
-            $stmt->execute();
-          
-            // set the resulting array to associative
-            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-            
-            $count = count($stmt->fetchAll());
-            
-            // checking if required meet
-            if(($roomsRequired != 0 ) && ($count >= $roomsRequired))
+
+        $pros = static::properties();
+        $result = [];
+        $result1 = [];
+
+        foreach($pros as $key => $val1)
+        {
+            foreach($pros[$key] as $key => $val)
             {
-                return $stmt->fetchAll();
+               if($key === 'room_price' && $val >= $minimum && $val <= $maximum)
+               {
+                 $result[] = $val1;
+               }
             }
-            else
-            {
-                return "The search result is not upto our required numbers of rooms";
-            }
-          }
-          catch(PDOException $e) {
-            return "Error: " . $e->getMessage();
-          }
-          $conn = null;
+            
+        }
+
+        foreach($result as $val2)
+        {
+        if($val2['room_availability'] === 'True')
+        {
+          array_push($result1, $val2);
+        }
+            
+        }
+      
+        $count = count($result1);
+
+        // checking if required meet
+        if(($roomsRequired != 0 ) && ($count >= $roomsRequired))
+        {
+            return $result1;
+        }
+        else
+        {
+            return "The search result is not upto our required numbers of rooms";
+        }
     }
+
+    
+
+    public static function properties()
+    {
+        return array(
+            array(
+                'room_name'=>'Room A', 
+                'room_price'=>30.34,
+                'room_no'=>1, 
+                'room_floor'=>3,
+                'room_availability'=>'False'
+
+            ),
+            array(
+                'room_name'=>'Room D', 
+                'room_price'=>20.25,
+                'room_no'=>1, 
+                'room_floor'=>2,
+                'room_availability'=>'True'
+
+            ),
+            array(
+                'room_name'=>'Room D', 
+                'room_price'=>30.00,
+                'room_no'=>2, 
+                'room_floor'=>3,
+                'room_availability'=>'True'
+
+            ),
+            array(
+                'room_name'=>'Room B', 
+                'room_price'=>35.90,
+                'room_no'=>2, 
+                'room_floor'=>3,
+                'room_availability'=>'True'
+
+            ),
+            array(
+                'room_name'=>'Room A', 
+                'room_price'=>40.00,
+                'room_no'=>1, 
+                'room_floor'=>1,
+                'room_availability'=>'True'
+
+            ),
+            array(
+                'room_name'=>'Room C', 
+                'room_price'=>25.70,
+                'room_no'=>2, 
+                'room_floor'=>3,
+                'room_availability'=>'True'
+
+            ),
+            array(
+                'room_name'=>'Room C', 
+                'room_price'=>50.99,
+                'room_no'=>1, 
+                'room_floor'=>4,
+                'room_availability'=>'False'
+
+            ),
+            array(
+                'room_name'=>'Room A', 
+                'room_price'=>35.00,
+                'room_no'=>2, 
+                'room_floor'=>3,
+                'room_availability'=>'True'
+
+            ),
+            array(
+                'room_name'=>'Room D', 
+                'room_price'=>30.87,
+                'room_no'=>1, 
+                'room_floor'=>3,
+                'room_availability'=>'False'
+
+            ),
+            array(
+                'room_name'=>'Room D', 
+                'room_price'=>30.00,
+                'room_no'=>1, 
+                'room_floor'=>3,
+                'room_availability'=>'True'
+
+            )
+        );
+    }
+
 }
